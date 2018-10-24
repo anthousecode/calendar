@@ -27,12 +27,15 @@ module.exports = {
   ** Global CSS
   */
   css: [
+    '~/assets/css/reset.css'
   ],
 
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~plugins/filters.js',
+    '~plugins/moment.js'
   ],
 
   /*
@@ -58,8 +61,10 @@ module.exports = {
     /*
     ** You can extend webpack config here
     */
-    extend(config, ctx) {
-      
+    extend(config, { isDev, isClient }) {
+      if (isDev) {
+        config.devtool = 'eval-source-map'
+      }
     }
   }
 }
