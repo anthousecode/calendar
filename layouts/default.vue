@@ -1,7 +1,11 @@
 <template>
-  <div>
-    <AppHeader/>
-    <nuxt/>
+  <div id="app">
+    <v-app>
+      <AppHeader/>
+      <div class="page-wrap">
+        <nuxt/>
+      </div>
+    </v-app>
   </div>
 </template>
 
@@ -27,6 +31,9 @@
   h1{
     font-size: 2.5em;
     font-weight: 700;
+  }
+  .page-wrap{
+    margin-top: 70px;
   }
   .link{
     color: #35495e;

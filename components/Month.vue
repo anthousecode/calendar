@@ -1,21 +1,25 @@
 <template>
-  <b-container fluid>
+  <v-container fluid>
       <div class="grid-calendar">
-        <b-row class="calendar__header">
-          <i class="fa fa-fw fa-chevron-left" @click="subtractMonth">-</i>
+        <div class="calendar__header">
+          <v-btn flat icon @click="subtractMonth">
+            <v-icon>arrow_back_ios</v-icon>
+          </v-btn>
           <h2>
             {{month + ' - ' + year}}
           </h2>
-          <i class="fa fa-fw fa-chevron-right" @click="addMonth">+</i>
-        </b-row>
-        <b-row class="calendar-week-header">
-          <b-col xs="1" class="grid-cell" v-for="day in days" :key="day">
+          <v-btn flat icon @click="addMonth">
+            <v-icon>arrow_forward_ios</v-icon>
+          </v-btn>
+        </div>
+        <v-layout class="calendar-week-header">
+          <v-flex xs12 class="grid-cell" v-for="day in days" :key="day">
             <div>
               <div><span>{{day}}</span></div>
             </div>
-          </b-col>
-        </b-row>
-        <b-row class="calendar-grid">
+          </v-flex>
+        </v-layout>
+        <v-layout row wrap  class="calendar-grid">
           <div class="grid-cell previous-month" v-for="(blank, index) in firstDayOfMonth" :key="index">
             <div>
               <div>
@@ -38,9 +42,9 @@
               </div>
             </div>
           </div>
-        </b-row>
+        </v-layout>
       </div>
-  </b-container>
+  </v-container>
 </template>
 
 <script>
@@ -122,36 +126,14 @@
   $number-of-days: 7;
   $column-width: percentage(1/$number-of-days);
 
-  .container {
-    max-width: 1000px;
-    margin: 50px auto 0;
-    padding-bottom: 1em;
-  }
-  .container-fluid{
-    margin: 50px auto 0;
-  }
   .calendar__header{
+    display: flex;
     justify-content: center;
     align-items: center;
   }
-  .row:before {
-    display: table;
-    content: " ";
-  }
-
   .grid-calendar {
     min-width: $min-width;
     box-shadow: -5px 5px 25px 5px rgba(84, 104, 115, 0.12);
-    .row {
-      /*
-        override these from bootstrap
-
-        margin-right: -15px;
-        margin-left: -15px;
-      */
-      margin: 0;
-
-    }
 
     .calendar-grid .grid-cell {
       background-color: #cbcbcb;

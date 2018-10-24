@@ -44,8 +44,7 @@ module.exports = {
   modules: [
     // Doc: https://github.com/nuxt-community/axios-module#usage
     '@nuxtjs/axios',
-    // Doc: https://bootstrap-vue.js.org/docs/
-    'bootstrap-vue/nuxt'
+    '@nuxtjs/vuetify'
   ],
   /*
   ** Axios module configuration
@@ -53,7 +52,15 @@ module.exports = {
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
   },
-
+  babel: {
+    presets: [
+      'es2015',
+      'stage-0',
+    ],
+    plugins: [
+      'transform-runtime'
+    ]
+  },
   /*
   ** Build configuration
   */
