@@ -2,48 +2,22 @@
   <div id="app">
     <v-app>
       <AppHeader/>
-      <div class="page-wrap">
-        <nuxt/>
-      </div>
     </v-app>
   </div>
 </template>
 
 <script>
   import AppHeader from '~/components/Header.vue'
+  // import DatePicker from '~/components/DatePicker.vue'
 
   export default {
     components: {
       AppHeader
+      // DatePicker
     }
   }
 </script>
 
 <style>
-  body {
-    font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    font-weight: 300;
-    font-size: 16px;
-    color: #35495e;
-    letter-spacing: 1px;
-  }
-  h1{
-    font-size: 2.5em;
-    font-weight: 700;
-  }
-  .page-wrap{
-    margin-top: 70px;
-  }
-  .link{
-    color: #35495e;
-    font-size: 18px;
-    font-style: italic;
-    text-decoration: underline;
-    transition: all .3s ease;
-    cursor: pointer;
-  }
-  .link:hover{
-    color: #2ddaa6;
-  }
+
 </style>

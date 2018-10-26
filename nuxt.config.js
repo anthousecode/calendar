@@ -35,7 +35,7 @@ module.exports = {
   */
   plugins: [
     '~plugins/filters.js',
-    '~plugins/moment.js'
+    '~/plugins/moment.js'
   ],
 
   /*

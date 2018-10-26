@@ -1,13 +1,13 @@
 <template>
-  <!--<app-header></app-header>-->
+    <h1>Week</h1>
 </template>
 
 <script>
   export default {
-
+    name: 'Week.vue'
   }
 </script>
 
-<style>
+<style scoped>
 
 </style>

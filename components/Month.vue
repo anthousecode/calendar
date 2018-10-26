@@ -1,6 +1,7 @@
 <template>
   <v-container fluid>
-      <div class="grid-calendar">
+    <transition name="fade">
+      <div class="grid-calendar" v-show="isMonthShow">
         <div class="calendar__header">
           <v-btn flat icon @click="subtractMonth">
             <v-icon>arrow_back_ios</v-icon>
@@ -19,7 +20,7 @@
             </div>
           </v-flex>
         </v-layout>
-        <v-layout row wrap  class="calendar-grid">
+        <v-layout row wrap class="calendar-grid">
           <div class="grid-cell previous-month" v-for="(blank, index) in firstDayOfMonth" :key="index">
             <div>
               <div>
@@ -30,10 +31,9 @@
           <div
             :class="{'grid-cell': true}"
             v-for="date in daysInMonth"
+            @click="onDayChoose(date)"
           >
-            <div>
-              <div><span>{{date}}</span></div>
-            </div>
+            <day-in-month :date="date" :isCurDate="isCurDate(date)"></day-in-month>
           </div>
           <div class="grid-cell next-month" v-for="blank in lastDayOfMonth">
             <div>
@@ -44,21 +44,30 @@
           </div>
         </v-layout>
       </div>
+    </transition>
   </v-container>
 </template>
 
 <script>
   import moment from 'moment';
+  import DayInMonth from '@/components/DayInMonth.vue';
 
   export default {
+    components:{
+      'day-in-month':DayInMonth
+    },
     data(){
       return{
         today: moment(),
-        dateContext: moment(),
-        days: ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN']
+        days: ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'],
+        isMonthShow : true
       }
     },
     computed:{
+      dateContext(){
+        let str = this.$store.getters.chosenDate;
+        return moment(str)
+      },
       year() {
         return this.dateContext.format('Y');
       },
@@ -95,16 +104,25 @@
     },
     methods: {
       addMonth() {
-        this.dateContext = moment(this.dateContext).add(1, 'month');
+        this.isMonthShow = false;
+        setTimeout(() => {
+          let nextMonth = moment(this.dateContext).add(1, 'month');
+          this.$store.commit('setChosenDate', nextMonth.format('YYYY-MM-DD'))
+          this.isMonthShow = true;
+        },300)
       },
       subtractMonth() {
-        this.dateContext = moment(this.dateContext).subtract(1, 'month');
+        this.isMonthShow = false;
+        setTimeout(() => {
+          let prevMonth = moment(this.dateContext).subtract(1, 'month');
+          this.$store.commit('setChosenDate', prevMonth.format('YYYY-MM-DD'))
+          this.isMonthShow = true;
+        },300)
+      },
+      isCurDate(date){
+        return date === this.initialDate &&  this.month === this.initialMonth && this.year === this.initialYear;
       }
-    },
-    filters:{
-      reverse: function(value) {
-        return value.slice().reverse();
-      }
+
     }
   }
 </script>
@@ -136,11 +154,26 @@
     box-shadow: -5px 5px 25px 5px rgba(84, 104, 115, 0.12);
 
     .calendar-grid .grid-cell {
-      background-color: #cbcbcb;
-      border: 1px solid #fff;
+      border-bottom: 1px solid #ccc;
 
       &:hover {
-        background-color: #d8d8d8;
+        background-color: #f2f2f2;
+      }
+    }
+    .calendar-grid .grid-cell.previous-month{
+      span{
+        color: #c9c9c9;
+      }
+      &:hover{
+        background-color: transparent;
+      }
+    }
+    .calendar-grid .grid-cell.next-month{
+      span{
+        color: #c9c9c9;
+      }
+      &:hover{
+        background-color: transparent;
       }
     }
     /*.calendar-week-header{*/
@@ -164,19 +197,6 @@
       width: $column-width;
       cursor: pointer;
       transition: background-color .25s ease;
-
-      &.previous-month {
-        background-color: #ece9e9;
-      }
-      &.previous-month:hover {
-        background-color: #ece9e9;
-      }
-      &.next-month {
-        background-color: #ece9e9;
-      }
-      &.next-month:hover {
-        background-color: #ece9e9;
-      }
       > div {
         display: flex;
         justify-content: flex-start;
@@ -192,6 +212,7 @@
         }
       }
     }
+
   }
   h2{
     text-align: center;
@@ -200,5 +221,19 @@
     padding: 20px 0;
     margin: 0 20px;
   }
-
+  .fade-enter-active, .fade-leave-active {
+    transition: all .25s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .fade-enter {
+    opacity: 0;
+  }
+  .fade-leave-to{
+    transform: translateX(50px);
+    opacity: 0;
+  }
+  @media screen and (max-width: 600px){
+    .calendar-week-header .grid-cell span{
+      font-size: 12px;
+    }
+  }
 </style>
