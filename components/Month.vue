@@ -31,7 +31,7 @@
           <div
             :class="{'grid-cell': true}"
             v-for="date in daysInMonth"
-            @click="onDayChoose(date)"
+            @click=""
           >
             <day-in-month :date="date" :isCurDate="isCurDate(date)"></day-in-month>
           </div>

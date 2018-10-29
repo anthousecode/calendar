@@ -3,6 +3,7 @@
     <v-date-picker
       ref="picker"
       v-model="date"
+      first-day-of-week="1"
       reactive
       :show-current="isCurShow"
       @change="onChangeDate"
