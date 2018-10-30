@@ -33,7 +33,7 @@
             v-for="date in daysInMonth"
             @click=""
           >
-            <day-in-month :date="date" :isCurDate="isCurDate(date)"></day-in-month>
+            <day-in-month :date="dateObj(date)" :isCurDate="isCurDate(date)"></day-in-month>
           </div>
           <div class="grid-cell next-month" v-for="blank in lastDayOfMonth">
             <div>
@@ -75,6 +75,7 @@
         return this.dateContext.format('MMMM');
       },
       daysInMonth() {
+        console.log(this.dateContext.daysInMonth())
         return this.dateContext.daysInMonth();
       },
       daysInPrevMonth() {
@@ -121,6 +122,10 @@
       },
       isCurDate(date){
         return date === this.initialDate &&  this.month === this.initialMonth && this.year === this.initialYear;
+      },
+      dateObj(date){
+        let dateStr = `${this.year}-${this.month}-${date}`
+        return moment(dateStr);
       }
 
     }
@@ -151,13 +156,12 @@
   }
   .grid-calendar {
     min-width: $min-width;
-    box-shadow: -5px 5px 25px 5px rgba(84, 104, 115, 0.12);
 
     .calendar-grid .grid-cell {
       border-bottom: 1px solid #ccc;
 
       &:hover {
-        background-color: #f2f2f2;
+        background: rgba(255, 255, 255, 0.3);
       }
     }
     .calendar-grid .grid-cell.previous-month{

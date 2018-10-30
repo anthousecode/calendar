@@ -46,6 +46,11 @@ module.exports = {
     '@nuxtjs/axios',
     '@nuxtjs/vuetify'
   ],
+  vuetify:{
+    theme:{
+      primary: '#0f2268'
+    }
+  },
   /*
   ** Axios module configuration
   */

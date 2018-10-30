@@ -74,9 +74,9 @@
     margin-left: 3%;
     border-right: 1px solid #ccc;
   }
-.hour__title{
-  background-color: #F5F5F5;
-}
+/*.hour__title{*/
+  /*background-color: #F5F5F5;*/
+/*}*/
 .grid-item{
   display: flex;
   padding: 20px 10px;

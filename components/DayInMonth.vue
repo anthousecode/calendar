@@ -3,37 +3,54 @@
                 'day-in-month': true }"
        :style="{backgroundImage: `url(${imageUrl})`}">
     <div>
-      <span>{{date}}</span>
-      <v-btn absolute fab light small >
-        <v-icon dark>add</v-icon>
-      </v-btn>
-      <v-btn  absolute  fab light small @click="onChooseFile">
-        <v-icon light >save_alt</v-icon>
-      </v-btn>
+      <span>{{calcDate(date)}}</span>
+      <v-flex class="day__actions justify-end" >
+        <span class="day__icon icon_add" @click="openDialog">
+              <v-icon light>add</v-icon>
+            </span>
+        <span class="day__icon icon_upload" @click="onChooseFile">
+              <v-icon light>save_alt</v-icon>
+            </span>
+      </v-flex>
       <input type="file"
              accept=".png, .jpg, .jpeg, .svg"
              ref="fileInput"
              style="display: none;"
              @change="onFilePicked">
     </div>
+    <v-dialog
+      v-model="dialog"
+      width="500"
+    >
+      <create-event-form :date="date" @closeDialog = "dialog=!dialog"></create-event-form>
+    </v-dialog>
+
   </div>
 </template>
 
 <script>
+  import CreateEventForm from '@/components/CreateEventForm'
   export default {
     props:{
       date:{
-        type: Number
+        type: Object
       },
       isCurDate:{
         type: Boolean
       }
     },
+    components:{
+      'create-event-form': CreateEventForm
+    },
     data(){
       return{
         image: null,
-        imageUrl: ''
+        imageUrl: '',
+        dialog: false
       }
+    },
+    computed:{
+
     },
     methods:{
       onChooseFile(){
@@ -52,7 +69,15 @@
         fileReader.readAsDataURL(files[0]);
         this.image = files[0];
         console.log(this.image);
+      },
+      calcDate(date){
+        return date.get('date');
+      },
+      openDialog(){
+        this.dialog = !this.dialog
       }
+    },
+    created(){
     }
   }
 </script>
@@ -70,14 +95,25 @@
   .day-in-month > div > span{
     font-weight: 700;
   }
-  .day-in-month > div > button:nth-child(2){
-    bottom: 10%;
-    right: 10%;
+  .day__actions{
+    position: absolute;
+    /*background-color: #ececec;*/
+    bottom: 0;
+    right: 0;
   }
-  .day-in-month > div > *:nth-child(3){
-    top: 10%;
-    right: 10%;
+  .day__icon{
+    display: flex;
+    justify-content: flex-end;
+    margin: 10px 0;
   }
+  /*.day-in-month > div > button:nth-child(2){*/
+    /*bottom: 10%;*/
+    /*right: 10%;*/
+  /*}*/
+  /*.day-in-month > div > *:nth-child(3){*/
+    /*top: 10%;*/
+    /*right: 10%;*/
+  /*}*/
   .current-day{
     background-color: #97eacc;
   }

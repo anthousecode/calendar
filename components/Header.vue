@@ -1,6 +1,6 @@
 <template>
   <header>
-    <v-toolbar app>
+    <v-toolbar app dark color="primary">
       <div class="header_logo">
         <h1>Calendar</h1>
       </div>
@@ -65,6 +65,8 @@
 </script>
 
 <style scoped>
-
+  h1{
+    color: #fff;
+  }
 
  </style>

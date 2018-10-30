@@ -40,7 +40,9 @@
     font-weight: 700;
   }
   main{
-    margin-top: 70px;
+    margin-top: 64px;
+    /*background: url(../static/main-bg.jpg);*/
+    background: linear-gradient(45deg, #6b4888, #4c96a1, #48625f);
   }
   .link{
     color: #35495e;
@@ -52,6 +54,11 @@
   }
   .link:hover{
     color: #2ddaa6;
+  }
+
+  /*Date picker customize*/
+  .v-picker .theme--light.v-picker__body{
+    background: rgba(255,255,255,.15);
   }
   @media screen and (max-width: 600px){
     main.layout.row {

@@ -44,5 +44,8 @@
 </script>
 
 <style scoped>
+.v-picker.v-card.theme--light{
+  background: rgba(255,255,255,.15);
+}
 
 </style>
